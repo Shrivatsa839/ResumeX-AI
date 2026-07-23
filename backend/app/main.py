@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 
-from app.api.health import router as health_router
-from app.config.settings import settings
+from app.api.v1.health import router as health_router
+from app.core.config import settings
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description="AI Resume Analyzer & ATS Score Checker",
 )
+
+# ===========================
+# API Routes
+# ===========================
 
 app.include_router(
     health_router,
@@ -16,7 +20,11 @@ app.include_router(
 )
 
 
-@app.get("/")
+# ===========================
+# Root Endpoint
+# ===========================
+
+@app.get("/", tags=["Root"])
 def root():
     return {
         "message": "Welcome to ResumeX AI 🚀"

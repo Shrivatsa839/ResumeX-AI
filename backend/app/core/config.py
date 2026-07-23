@@ -1,8 +1,4 @@
-from pathlib import Path
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
-BASE_DIR = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
@@ -20,10 +16,9 @@ class Settings(BaseSettings):
     LOG_LEVEL: str
 
     model_config = SettingsConfigDict(
-        env_file=BASE_DIR / ".env",
-        extra="ignore",
+        env_file=".env",
+        case_sensitive=True,
     )
 
-print("Looking for .env at:", BASE_DIR / ".env")
 
 settings = Settings()
